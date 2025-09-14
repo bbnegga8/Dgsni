@@ -650,8 +650,41 @@
       .sniffer-hero { padding: 14px 0 12px 0; }
     }
   </style>
+<style>
+  #desktop-only-overlay {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    background: #1D2634;
+    color: #fff;
+    font-family: 'Nunito Sans', Arial, sans-serif;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  #desktop-only-overlay.show {
+    display: flex;
+  }
+  #desktop-only-overlay h1 {
+    color: #60A6FA;
+    font-size: 2.3em;
+    margin-bottom: 0.2em;
+  }
+  #desktop-only-overlay p {
+    font-size: 1.1em;
+    color: #B8BDC3;
+  }
+</style>
 </head>
 <body>
+<div id="desktop-only-overlay">
+  <h1>Desktop Only</h1>
+  <p>This site is only available on computer.<br>Please visit from a desktop or laptop device.</p>
+</div>
   <!-- NAVBAR SNIPPER PRO (remplace le gros logo) -->
   <nav class="navbar-sniffer">
     <img src="logo.png" alt="Dog-Watch logo" class="navbar-sniffer-logo" draggable="false">
@@ -917,5 +950,16 @@
       if (e.key === 'Enter') document.getElementById('scanButton').click();
     });
   </script>
+<script>
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    || (window.innerWidth < 900 && window.innerHeight < 900);
+}
+if (isMobileDevice()) {
+  document.body.innerHTML = ''; // cache le contenu existant
+  document.body.appendChild(document.getElementById('desktop-only-overlay'));
+  document.getElementById('desktop-only-overlay').classList.add('show');
+}
+</script>
 </body>
 </html>
